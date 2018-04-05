@@ -8,19 +8,23 @@ class Router {
         $section_name = $url_components[1];
         $class_name = ucfirst($section_name);
         if (!class_exists($class_name)) {
-            //TODO redirect to 404
-            exit('404');
+            self::redirect();
         }
         $sectionObj = new $class_name();
         $item_number = $url_components[2];
-        if(empty($item_number)){
+        if (empty($item_number)) {
             $sectionObj->index();
-        }else{
-            if(!$sectionObj->showItem($item_number)){
-                //TODO redirect to 404
-                exit('404');
+        } else {
+            if (!$sectionObj->showItem($item_number)) {
+                self::redirect();
             }
         }
+    }
+
+    static public function redirect() {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
+        include_once 'error404.php';
+        exit();
     }
 
 }

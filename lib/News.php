@@ -3,7 +3,7 @@
 class News extends AbstractSection {
 
     /**
-     *
+     *обьект предназначенный для работы с даными новостей
      * @var NewsHandler 
      */
     protected $news_handler;
@@ -15,13 +15,13 @@ class News extends AbstractSection {
 
     public function index() {
         $data = $this->news_handler->getAllNews();
-        $this->displayer->show($data);
+        $this->displayer->show('news_index.php',$data);
     }
 
     public function showItem($itemID) {
         $data = $this->news_handler->getNewsItem($itemID);
         if ($data) {
-            $this->displayer->show($data);
+            $this->displayer->show('news_show_item.php' ,$data);
             return true;
         } else {
             return false;

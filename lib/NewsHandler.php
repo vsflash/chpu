@@ -21,7 +21,12 @@ class NewsHandler {
     }
 
     public function getNewsItem($itemID) {
-        //TODO
+       $query = 'select * from ' . $this->tableName.' where id='.$itemID;
+        $queryResult = $this->dbConnection->query($query);
+        if ($queryResult) {
+            $newsItem = $queryResult->fetch_array(MYSQLI_ASSOC);
+            return $newsItem;
+        }
         return 'news with id ' . $itemID;
     }
 
